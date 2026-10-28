@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[0.0,0.0,0.04297064084722995],"half":0.09470854853592531},"meshes":[{"src":"pipeline/retarget_robot.glb","role":"robot"},{"src":"pipeline/retarget_anchors.glb","role":"keep"}]}

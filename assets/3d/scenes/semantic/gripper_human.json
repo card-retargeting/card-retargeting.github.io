@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[0.013905855030923349,0.06485792712337468,0.04102336162021665],"half":0.11371256411075592},"meshes":[{"src":"semantic/gripper_human.glb","role":"keep"}],"source":{"figure":"fig_semantic_map","card":"Parallel-jaw","side":"human","view_yaw_pitch":[30,0]}}

@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[-0.018932435441451304,0.07228479679384862,-0.016884393554034295],"half":0.11371256411075592},"meshes":[{"src":"semantic/dex3_human.glb","role":"keep"}],"source":{"figure":"fig_semantic_map","card":"Dex3","side":"human","view_yaw_pitch":[0,-30]}}
