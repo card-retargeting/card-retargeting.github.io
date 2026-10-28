@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[-0.01119384914636612,0.09526927769184113,0.019079195335507393],"half":0.11371256411075592},"meshes":[{"src":"semantic/sharpa.glb","role":"keep"}],"source":{"figure":"fig_semantic_map","card":"SHARPA","side":"robot","view_yaw_pitch":[0,-15]}}

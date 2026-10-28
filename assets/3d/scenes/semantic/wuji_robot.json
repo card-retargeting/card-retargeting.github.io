@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[-0.021424690261483192,0.08239752799272537,0.01746775209903717],"half":0.11371256411075592},"meshes":[{"src":"semantic/wuji.glb","role":"keep"}],"source":{"figure":"fig_semantic_map","card":"Wuji Hand 2","side":"robot","view_yaw_pitch":[0,-15]}}

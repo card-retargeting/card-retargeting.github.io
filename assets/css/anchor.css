@@ -1,0 +1,106 @@
+/* Stage 4 contact-cost toy, built by assets/js/anchor.js. Everything is scoped to #anchor-demo / .adx-*. */
+
+#anchor-demo { display: block; margin-top: 24px; }
+.adx-card { position: relative; border-radius: var(--r); background: #fbfbfa; box-shadow: 0 14px 40px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.05); overflow: hidden; }
+
+/* scene: the cost field is a canvas under the svg */
+.adx-scene { position: relative; touch-action: pan-y; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; }
+.adx-field { position: absolute; left: 0; top: 0; width: 100%; height: 100%; pointer-events: none; }
+.adx-svg { position: relative; display: block; width: 100%; height: auto; overflow: hidden; }
+.adx-svg text { font-family: var(--font); }
+.adx-sym { font-size: 16px; font-style: italic; font-weight: 600; paint-order: stroke; stroke: #fbfbfa; stroke-width: 3px; stroke-linejoin: round; transition: opacity .15s; }
+.adx-sub { font-size: 11px; }
+.adx-s-l { fill: var(--ink); }
+.adx-band-l { font-size: 11px; fill: #8a867e; letter-spacing: .02em; }
+.adx-lev text { font-size: 11px; fill: rgba(29,29,31,.6); paint-order: stroke; stroke: #fbfbfa; stroke-width: 3px; stroke-linejoin: round; font-variant-numeric: tabular-nums; }
+.adx-gap { transition: opacity .15s; }
+.adx-pad { cursor: grab; outline: none; touch-action: none; }
+.adx-pad.grabbing { cursor: grabbing; }
+.adx-ring { fill: none; stroke: var(--ours); stroke-width: 2.5; opacity: 0; }
+.adx-pad:focus-visible .adx-ring { opacity: 1; }
+.adx-scene.running .adx-pad { opacity: .8; }
+.adx-sig { transition: opacity .2s; opacity: 0; }
+.adx-cd { fill: rgba(29,29,31,.34); }
+.adx-cd.bad { fill: none; stroke: rgba(29,29,31,.3); stroke-width: 1; }
+.adx-cd.el { fill: var(--ours-ink); stroke: #fff; stroke-width: 1.2; }
+.adx-scene.ran .adx-cd:not(.el) { opacity: .45; }
+.adx-ghost { fill: none; stroke: rgba(29,29,31,.4); stroke-width: 1.2; stroke-dasharray: 4 4; opacity: 0; }
+.adx-scene.running .adx-ghost, .adx-scene.ran .adx-ghost { opacity: 1; }
+.adx-means circle { fill: #fff; stroke: rgba(29,29,31,.7); stroke-width: 1.2; }
+
+.adx-hint, .adx-iter { position: absolute; left: 14px; top: 10px; max-width: calc(100% - 196px); margin: 0; font-size: 13px; line-height: 1.3; color: var(--ink3); pointer-events: none; transition: opacity .2s; }
+.adx-iter { color: var(--ink2); font-variant-numeric: tabular-nums; white-space: pre; }
+.adx-scene.running .adx-hint, .adx-scene.ran .adx-hint { opacity: 0; }
+
+.adx-key { position: absolute; right: 14px; top: 10px; width: 152px; font-size: 11px; line-height: 1.2; color: var(--ink3); pointer-events: none; }
+.adx-key-t { display: block; margin-bottom: 5px; text-align: right; white-space: nowrap; }
+.adx-key-bar { position: relative; display: block; height: 8px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.07);
+  background: linear-gradient(90deg, rgba(47,158,110,.52), rgba(47,158,110,.32) 25%, rgba(47,158,110,.16) 50%, rgba(47,158,110,.05) 75%, rgba(47,158,110,0)); }
+.adx-key-bar i { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(29,29,31,.38); }
+.adx-key-n { position: relative; display: block; height: 14px; margin-top: 3px; font-variant-numeric: tabular-nums; }
+.adx-key-n b { position: absolute; top: 0; font-weight: 500; transform: translateX(-50%); }
+.adx-key-n b:first-child { transform: none; }
+
+/* cost over rotation; the curve is also the rotation control */
+.adx-theta { position: relative; margin: 6px 12px 0; border-radius: 10px; cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none; outline: none; }
+.adx-theta svg { display: block; width: 100%; overflow: visible; }
+.adx-theta text { font-size: 11px; fill: var(--ink3); font-family: var(--font); font-variant-numeric: tabular-nums; }
+.adx-theta .adx-zl { fill: var(--ours-ink); font-size: 10.5px; letter-spacing: .02em; paint-order: stroke; stroke: #fbfbfa; stroke-width: 3px; stroke-linejoin: round; }
+.adx-zone { fill: rgba(47,158,110,.07); }
+.adx-gl { stroke: rgba(29,29,31,.08); }
+.adx-axis { stroke: rgba(29,29,31,.32); }
+.adx-c45 { stroke: rgba(31,122,83,.4); stroke-dasharray: 2 3; }
+.adx-rg { stroke: rgba(29,29,31,.28); }
+.adx-rg.el { stroke: var(--ours-ink); stroke-width: 2; }
+.adx-theta:focus-visible { box-shadow: 0 0 0 2px var(--ours); }
+.adx-theta:focus-visible .adx-thumb { stroke: var(--ours); stroke-width: 2.5; }
+
+/* readout */
+.adx-read { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px 18px; padding: 8px 16px 4px; }
+.adx-total { display: flex; align-items: baseline; gap: 6px; }
+.adx-k { font-size: 14px; color: var(--ink2); }
+.adx-k sub, .adx-key-t sub, .adx-leg sub { font-size: .72em; }
+.adx-v { min-width: 2.4ch; font-size: 26px; font-weight: 650; letter-spacing: -.02em; text-align: right; }
+.adx-u { font-size: 13px; color: var(--ink3); }
+.adx-bar { position: relative; display: flex; gap: 2px; height: 10px; border-radius: 5px; background: rgba(0,0,0,.06); }
+.adx-bar i { display: block; height: 100%; }
+.adx-br { background: var(--anchor); border-radius: 5px 0 0 5px; }
+.adx-bc { background: #0e8fa3; }
+.adx-bar.over .adx-bc:last-of-type { border-radius: 0 5px 5px 0; }
+.adx-barrow { display: flex; align-items: center; gap: 8px; }
+.adx-barrow .adx-bar { flex: 1 1 auto; }
+.adx-bar-max { font-size: 11px; color: var(--ink3); }
+.adx-bar.over + .adx-bar-max::before { content: "> "; }
+.adx-h { position: relative; display: inline-block; }
+.adx-h::after { content: ""; position: absolute; left: 52%; top: .02em; width: .3em; height: .3em; border: solid currentColor; border-width: .09em 0 0 .09em; transform: translateX(-50%) rotate(45deg); transform-origin: center; }
+.adx-hat { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.adx-o { fill: #b25616; color: #b25616; }
+.adx-o .adx-sym, .adx-sym.adx-o { stroke: #d6d3cd; }
+.adx-t { fill: #0b6f7f; color: #0b6f7f; }
+.adx-min { font-size: 11px; fill: var(--ours-ink); font-weight: 600; paint-order: stroke; stroke: #fbfbfa; stroke-width: 3px; stroke-linejoin: round; font-variant-numeric: tabular-nums; }
+.adx-leg { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 6px; font-size: 12.5px; color: var(--ink2); }
+.adx-leg > span { white-space: nowrap; }
+.adx-leg > span::before { content: ""; display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 2px; vertical-align: -1px; }
+.adx-lr::before { background: var(--anchor); }
+.adx-lc::before { background: #0e8fa3; }
+.adx-leg b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.adx-run { justify-self: end; display: inline-flex; align-items: center; gap: 7px; padding: 8px 15px 8px 12px; border: 0; border-radius: 999px; background: var(--ink); color: #fff; font: 600 13.5px/1 var(--font); cursor: pointer; white-space: nowrap; transition: background .2s; }
+.adx-run:hover { background: #3a3a3e; }
+.adx-run svg { width: 12px; height: 12px; fill: currentColor; }
+.adx-foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 8px 16px 14px; }
+.adx-chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 5px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: rgba(0,0,0,.05); color: var(--ink3); white-space: nowrap; transition: background .2s, color .2s; }
+.adx-chip::before { content: "\2715"; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: rgba(29,29,31,.1); font-size: 9px; line-height: 1; }
+.adx-chip.ok { background: color-mix(in srgb, var(--ours) 14%, transparent); color: var(--ours-ink); }
+.adx-chip.ok::before { content: "\2713"; background: var(--ours); color: #fff; font-size: 10px; }
+.adx-chip b { font-weight: 500; font-variant-numeric: tabular-nums; }
+.adx-note { margin: 0 0 0 auto; font-size: 12px; color: var(--ink3); }
+
+@media (max-width: 560px) {
+  .adx-read { grid-template-columns: auto auto; justify-content: space-between; padding-top: 10px; }
+  .adx-terms { grid-column: 1 / -1; grid-row: 2; }
+  .adx-note { margin-left: 0; flex-basis: 100%; }
+  .adx-key { width: 132px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .adx-sym, .adx-gap, .adx-sig, .adx-chip, .adx-hint, .adx-iter { transition: none; }
+}

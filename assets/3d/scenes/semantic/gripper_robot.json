@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[0.00878666341304779,0.059622664004564285,-0.013754342682659626],"half":0.11371256411075592},"meshes":[{"src":"semantic/gripper.glb","role":"keep"}],"source":{"figure":"fig_semantic_map","card":"Parallel-jaw","side":"robot","view_yaw_pitch":[30,0]}}

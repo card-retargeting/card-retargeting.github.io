@@ -1,0 +1,6 @@
+{
+  "uhcr": { "label": "Unified contact representation", "rects": [[0.452, 0.055, 0.526, 0.30], [0.10, 0.03, 0.335, 0.43]] },
+  "init": { "label": "Geometric initialization", "rects": [[0.452, 0.40, 0.526, 0.245]] },
+  "retarget": { "label": "Retargeted to the SHARPA Wave", "rects": [[0.452, 0.685, 0.526, 0.25]] },
+  "replay": { "label": "Tactile tracker and open-loop replay", "rects": [[0.015, 0.48, 0.415, 0.48]] }
+}

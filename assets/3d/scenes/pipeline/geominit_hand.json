@@ -1,0 +1,1 @@
+{"frame":"screen","window":{"center":[0.0,0.0,0.03436503500501818],"half":0.09470854853592531},"meshes":[{"src":"pipeline/geominit_mano.glb","role":"keep"},{"src":"pipeline/geominit_robot.glb","role":"robot"}]}
