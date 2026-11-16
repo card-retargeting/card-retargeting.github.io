@@ -20,7 +20,7 @@ export const TASKS = [
     frames: fr('cup', [0.50, 3.62, 5.23, 7.87]), demo: `${V}demos/cup.mp4`, demoSrc: 'Phone video',
     desc: 'The hand takes a thin plastic cup near the rim, lifts and tilts it, and puts it back.' },
   { key: 'tongs', name: 'Tong use', hand: 'Unitree Dex3-1', video: `${V}realworld/tongs_crop.mp4`, poster: `${V}realworld/tongs_crop.jpg`, thumb: `${V}realworld/tongs_crop.jpg`,
-    frames: fr('tongs', [0.00, 2.28, 6.57, 7.90]), demo: `${V}far/human_demo_tongs_contact_mesh.mp4`, demoSrc: 'Phone video',
+    frames: fr('tongs', [0.00, 2.28, 6.57, 7.90]), demo: `${V}demo_tongs/human_demo_tongs_contact_mesh.mp4`, demoSrc: 'Phone video',
     desc: 'A three-finger hand squeezes the tongs shut and opens them.' },
 ];
 
